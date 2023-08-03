@@ -1,0 +1,67 @@
+{%load crispy_forms_tags %} 
+
+{% load static%}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Edit Details</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+       <style>
+        body {
+            background-color: #f9f9fa;
+            
+        }
+        
+        body{
+            background:#e0e0e0 !important;
+        }
+        .form-grp{
+            border-radius: 50px;
+            background: #e0e0e0;
+            box-shadow:  -20px -20px 60px #bebebe,
+            20px 20px 60px #ffffff;
+            width:50%;
+           
+            padding:2%;
+            margin-top: 5%;
+            margin-left:25%;
+            
+            display: flex;
+      
+    
+        }
+      
+    </style>
+            
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a href = "{% url 'pdash' %}" class = "navbar-brand">
+            <img src = "{% static 'logo.png' %}" alt = "site logo" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{% url 'adash' %}">Home</a>
+     
+          </div>
+        </div>
+      </nav><br>
+    <h2 align='center'>Account Details</h2>
+<div class='form-grp'>
+<form method='POST' >
+ {% csrf_token %}
+ {{uform | crispy}}
+{{aform | crispy}}
+
+<br>
+<button type="submit" class="btn btn-primary">Submit</button>
+
+</div>
+
+</form>

@@ -1,0 +1,241 @@
+{% comment %} <h1>Patient Dashboard</h1>
+<h2>Hello {{patient.full_name}}<h2>
+
+<a href="{% url 'pinfo' %}">Account Details</a>    <br>
+<a href="{% url 'logout' %}">Logout</a>    <br>
+<a href="{% url 'book_app' request.user.id %}">Book Appointment</a><br>
+<a href="{% url 'pMApp' request.user.id %}">Manage Appointments</a><br>
+<a href="{% url 'pUpApp' request.user.id %}">Upcoming Appointments</a><br>
+<a href="{% url 'pPApp' request.user.id %}">Past Appointments</a><br>
+<button onclick="window.open('/hms/patient/bookappointment/' + {{ request.user.id }}, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400');">Book</button> {% endcomment %}
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- normalize css -->
+    <link rel = "stylesheet" href = "{% static 'normalize.css' %}">
+    <link rel = "stylesheet" href = "{% static 'patient.css' %}">
+    <!-- custom css -->
+    <link rel = "stylesheet" href = "{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+    <nav class = "navbar bg-blue">
+        <div class = "container flex">
+            <a href = "{% url 'home' %}" class = "navbar-brand">
+                <img src = "{% static 'logo.png' %}" alt = "site logo">
+            </a>
+            <h1>Welcome {{patient.full_name}}</h1>
+            <div class = "navbar-collapse bg-white">
+                 <ul class = "navbar-nav">
+                    <li class = "nav-item">
+                        <a href = "{%url 'home'%}" class = "nav-link">Home</a>
+                    <li class = "nav-item">
+                        <a href="{% url 'logout' %}" class = "nav-link">Log out</a>
+                    </li>
+                </ul>
+            </div> 
+        </div>
+    </nav>
+</header>
+<main class="site-wrapper">
+    <div class="pt-table desktop-768">
+      <div class="pt-tablecell page-home relative" style="background-image: url(https://images.unsplash.com/photo-1565307528294-f70f3c7094e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80);
+      background-position: center;
+      background-size: cover;">
+                      <div class="overlay"></div>
+  
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">      
+                                  <div class="hexagon-menu clear">
+                                      <div class="hexagon-item">
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <a  href="{% url 'book_app' request.user.id %}" class="hex-content">
+                                              <span class="hex-content-inner">
+                                                {% comment %} <a   target="popup" 
+                                          onclick="window.open('/hms/patient/bookappointment/'+{{request.user.id}},'popup','width=600,height=600'); return false;" class="hex-content">
+                                              <span class="hex-content-inner"> {% endcomment %}
+                                                  <span class="icon">
+                                                      <i class="fa fa-hourglass-half"></i>
+                                                  </span>
+                                                 <span class="title">Book appointment</span>
+                                              </span>
+                                              <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                          </a>
+                                      </div>
+                                      <div class="hexagon-item">
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          
+                                            <a  href="{% url 'pMApp' request.user.id %}" class="hex-content">
+                                              <span class="hex-content-inner">
+                                                  <span class="icon">
+                                                      <i class="fa fa-calendar-days"></i>
+                                                  </span>
+                                                  <span class="title">Manage appointments</span>
+                                              </span>
+                                              <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                          </a>
+                                      </div>
+                                      <div class="hexagon-item">
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <a  href="{% url 'pUpApp' request.user.id %}" class="hex-content">
+                                              <span class="hex-content-inner">
+                                                  <span class="icon">
+                                                      <i class="fa fa-braille"></i>
+                                                  </span>
+                                                  <span class="title">Upcoming appointments</span>
+                                              </span>
+                                              <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                          </a>    
+                                      </div>
+                                      <div class="hexagon-item">
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <a  href="{% url 'pPApp' request.user.id %}" class="hex-content">
+                                              <span class="hex-content-inner">
+                                                  <span class="icon">
+                                                      <i class="fa fa-history"></i>
+                                                  </span>
+                                                  <span class="title">Past appointments</span>
+                                              </span>
+                                              <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                          </a>
+                                      </div>
+                                      <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <a  href="{% url 'logout' %}" class="hex-content">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i class="fa fa-sign-out-alt"></i>
+                                                </span>
+                                                <span class="title">Log out</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                        </a>
+                                    </div>
+                                      <div class="hexagon-item">
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <a  href="{% url 'home' %}" class="hex-content">
+                                              <span class="hex-content-inner">
+                                                  <span class="icon">
+                                                      <i class="fa fa-home"></i>
+                                                  </span>
+                                                  <span class="title">Home</span>
+                                              </span>
+                                              <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                          </a>
+                                      </div>
+                                      <div class="hexagon-item">
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <div class="hex-item">
+                                              <div></div>
+                                              <div></div>
+                                              <div></div>
+                                          </div>
+                                          <a  href="{% url 'pinfo' %}" class="hex-content">
+                                              <span class="hex-content-inner">
+                                                  <span class="icon">
+                                                      <i class="fa fa-id-badge"></i>
+                                                  </span>
+                                                  <span class="title">Account details</span>
+                                              </span>
+                                              <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                          </a>
+                                      </div>
+                                      
+                                      <div class="hexagon-item">
+                                        <div class="hex-item">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <div class="hex-item">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <a class="hex-content">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i class="fa fa-heartbeat"></i>
+                                                </span>
+                                                <span class="title">Patient ID: {{patient.id}}</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#1e2530"></path></svg>
+                                        </a>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+    </main>
+</body>
+</html>

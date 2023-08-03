@@ -1,0 +1,365 @@
+
+{% load static %}
+
+{% comment %} <h1>Home</h1>
+{% if request.user.is_authenticated%}
+<a href="/authenticate/logout/">Logout</a>
+{%else%}
+<a href="/authenticate/login/">Login</a>
+{%endif%} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital</title>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- normalize css -->
+    <link rel = "stylesheet" href = "{% static 'normalize.css' %}">
+    <!-- custom css -->
+    <link rel = "stylesheet" href = "{% static 'style.css' %}">
+</head>
+<body>
+    
+
+    <!-- header -->
+    <header class = "header bg-blue">
+        <nav class = "navbar bg-blue">
+            <div class = "container flex">
+                <a href = "{% url 'home' %}" class = "navbar-brand">
+                    <img src = "{% static 'logo.png' %}" alt = "site logo">
+                </a>
+                <button type = "button" class = "navbar-show-btn">
+                    <img src = "{% static 'ham-menu-icon.png' %}">
+                </button>
+
+                <div class = "navbar-collapse bg-white">
+                    <button type = "button" class = "navbar-hide-btn">
+                        <img src = "{% static 'close-icon.png' %}">
+                    </button>
+                    <ul class = "navbar-nav">
+                        <li class = "nav-item">
+                            <a href = "#" class = "nav-link">Home</a>
+                        </li>
+                        <li class = "nav-item">
+                            <a href = "#about" class = "nav-link">About</a>
+                        </li>
+                        <li class = "nav-item">
+                            <a href = "#services" class = "nav-link">Services</a>
+                        </li>
+                        <li class = "nav-item">
+                            <a href = "#doc-panel" class = "nav-link">Doctors</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        {%if group == "patient" %}
+                        <li class = "nav-item">
+                            <a href = "{%url 'pdash'%}" class = "nav-link">Dashboard</a>
+                        </li>
+                        {% endif %}
+                        {%if group == "doctor" %}
+                        <li class = "nav-item">
+                            <a href = "{%url 'ddash'%}" class = "nav-link">Dashboard</a>
+                        </li>
+                        {% endif %}
+                        {%if group == "accountant" %}
+                        <li class = "nav-item">
+                            <a href = "{%url 'adash'%}" class = "nav-link">Dashboard</a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        
+                        <li class = "nav-item">
+                            
+                            {% if request.user.is_authenticated%}
+                            <a href="/authenticate/logout/" class = "nav-link">Logout</a>
+                            {%else%}
+                            <a href="/authenticate/login/" class = "nav-link">Login</a>
+                            {%endif%} 
+                        </li>
+                    </ul>
+                    <!-- <div class = "search-bar">
+                        <form>
+                            <div class = "search-bar-box flex">
+                                <span class = "search-icon flex">
+                                    <img src = "images/search-icon-dark.png">
+                                </span>
+                                <input type = "search" class = "search-control" placeholder="Search here">
+                            </div>
+                        </form>
+                    </div> -->
+                </div> 
+            </div>
+        </nav>
+
+        <div class = "header-inner text-white text-center">
+            <div class = "container grid">
+                <div class = "header-inner-left">
+                    <h1>your most trusted<br> <span>health partner</span></h1>
+                    <p class = "lead">the best match services for you</p>
+                    <p class = "text text-md">“Medicine aims to prevent disease plus prolong life; the idea of medicine is to eliminate the need of a physician.”</p>
+                    <div class = "btn-group">
+                        <a href = "#about" class = "btn btn-white">Learn More</a>
+                        
+                        {% if request.user.is_authenticated%}
+                        <a href="/authenticate/logout/" class = "btn btn-light-blue">Logout</a>
+                        {%else%}
+                        <a href="/authenticate/login/" class = "btn btn-light-blue">Login</a>
+                        {%endif%} 
+                    </div>
+                </div>
+                <div class = "header-inner-right">
+                    <img src = "{% static 'header.png' %}">
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end of header -->
+
+    <main>
+        <!-- about section -->
+        <section id = "about" class = "about py">
+            <div class = "about-inner">
+                <div class = "container grid">
+                    <div class = "about-left text-center">
+                        <div class = "section-head">
+                            <h2>About Us</h2>
+                            <div class = "border-line"></div>
+                        </div>
+                        <p class = "text text-lg">Our team listens to your concerns, answers your questions, and works with you to develop a treatment plan that meets your individual needs. We have a team of highly skilled physicians, nurses, and healthcare professionals to ensure the best possible care. Our hospital is equipped with state-of-the-art technology and facilities for comprehensive medical services. We are committed to delivering compassionate and personalized care to each patient.  Our mission is to be a trusted healthcare provider that delivers high-quality care with compassion, dignity, and respect. <br>
+                            Thank you for considering our hospital for your healthcare needs. We look forward to serving you and your family.</p>
+                        <!-- <a href = "#" class = "btn btn-white">Learn More</a> -->
+                    </div>
+                    <div class = "about-right flex">
+                        <div class = "img">
+                            <img src = "{% static 'about-img.png' %}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end of about section -->
+
+
+         <!-- banner two section -->
+         <section id = "banner-two" class = "banner-two text-center">
+            <div class = "container grid">
+                <div class = "banner-two-left">
+                    <img src = "{% static 'logo.png' %}">
+                </div>
+                <div class = "banner-two-right">
+                    <p class = "lead text-white">When you are young and healthy, it never occurs to you that in a single second your whole life could change.</p>
+                    <div class = "btn-group">
+                        <a href = "#about" class = "btn btn-white">Learn More</a>
+                        {% if request.user.is_authenticated%}
+                        <a href="/authenticate/logout/" class = "btn btn-light-blue">Logout</a>
+                        {%else%}
+                        <a href="/authenticate/login/" class = "btn btn-light-blue">Login</a>
+                        {%endif%} 
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end of banner two section -->
+
+
+        <!-- services section -->
+        <section id = "services" class = "services py">
+            <div class = "container">
+                <div class = "section-head text-center">
+                    <h2 class = "lead">The Best Doctor gives the least medicines</h2>
+                    <p class = "text text-lg">A perfect way to show your hospital services</p>
+                    <div class = "line-art flex">
+                        <div></div>
+                        <img src = "{% static '4-dots.png' %}">
+                        <div></div>
+                    </div>
+                </div>
+                <div class = "services-inner text-center grid">
+                    <article class = "service-item">
+                        <div class = "icon">
+                            <img src = "{% static 'service-icon-1.png' %}">
+                        </div>
+                        <h3>Cardio Monitoring</h3>
+                        <p class = "text text-sm">We provide the best in class cardio monitoring with ECG facilities along with 24/7 available cardiologist. We are committed to delivering compassionate and personalized care to each patient.</p>
+                    </article>
+
+                    <article class = "service-item">
+                        <div class = "icon">
+                            <img src = "{% static 'service-icon-2.png' %}">
+                        </div>
+                        <h3>Medical Treatment</h3>
+                        <p class = "text text-sm">Best-in-class medical treatment is guaranteed by highly qualified and highly experienced doctors for any type of disease. We have a team of highly skilled physicians, nurses, and healthcare professionals to ensure the best possible care.</p>
+                    </article>
+
+                    <article class = "service-item">
+                        <div class = "icon">
+                            <img src = "{% static 'service-icon-3.png'%}">
+                        </div>
+                        <h3>Emergency Help</h3>
+                        <p class = "text text-sm">We provide 24/7 emergency services for the patients. Physician will be available always in the hospital. Our hospital is equipped with state-of-the-art technology and facilities for comprehensive medical services.</p>
+                    </article>
+
+                    <article class = "service-item">
+                        <div class = "icon">
+                            <img src = "{% static 'service-icon-4.png'%}">
+                        </div>
+                        <h3>First Aid</h3>
+                        <p class = "text text-sm">First-aid will be provided within minutes for those in need for accident patients, patients with critical health. Our team listens to your concerns, answers your questions, and works with you to develop a treatment plan that meets your individual needs.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- end of services section -->
+
+       
+        <!-- doctors section -->
+        <section id = "doc-panel" class = "doc-panel py">
+            <div class = "container">
+                <div class = "section-head">
+                    <h2>Our Doctor Panel</h2>
+                </div>
+
+                <div class = "doc-panel-inner grid">
+                    <div class = "doc-panel-item" >
+                        <a href = "#doc-panel">
+                        <div class = "img flex">
+                            <img src = "{% static 'doc1.jpg' %}" alt = "doctor image">
+                            <div class = "info text-center bg-blue text-white flex">
+                                <p class = "lead" >Doctor 1</p>
+                                <p class = "text-lg">Medicine</p>
+                            </div>
+                        </div></a>
+                    </div>
+
+                    <div class = "doc-panel-item">
+                        <a href = "#doc-panel">
+                        <div class = "img flex">
+                            <img src = "{% static 'doc2.jpg' %}" alt = "doctor image">
+                            <div class = "info text-center bg-blue text-white flex">
+                                <p class = "lead">Sukruth M Bharadwaj</p>
+                                <p class = "text-lg">Cardiology</p>
+                            </div>
+                        </div></a>
+                    </div>
+
+                    <div class = "doc-panel-item">
+                        <a href = "#doc-panel">
+                        <div class = "img flex">
+                            <img src = "{% static 'doc3.jpg'%}" alt = "doctor image">
+                            <div class = "info text-center bg-blue text-white flex">
+                                <p class = "lead">Manish K B</p>
+                                <p class = "text-lg">Medicine</p>
+                            </div>
+                        </div></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end of doctors section -->
+
+    </main>
+
+    <!-- footer  -->
+    <footer id = "footer" class = "footer text-center">
+        <div class = "container">
+            <div class = "footer-links">
+                <ul class = "flex">
+                    <li><a href = "#" class = "text-white flex"> <i class = "fab fa-facebook-f"></i></a></li>
+                    <li><a href = "#" class = "text-white flex"> <i class = "fab fa-twitter"></i></a></li>
+                    <li><a href = "#" class = "text-white flex"> <i class = "fab fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer  -->
+
+
+    <!-- custom js -->
+    <script >
+        // navbar toggling
+const navbarShowBtn = document.querySelector('.navbar-show-btn');
+const navbarCollapseDiv = document.querySelector('.navbar-collapse');
+const navbarHideBtn = document.querySelector('.navbar-hide-btn');
+
+navbarShowBtn.addEventListener('click', function(){
+    navbarCollapseDiv.classList.add('navbar-show');
+});
+navbarHideBtn.addEventListener('click', function(){
+    navbarCollapseDiv.classList.remove('navbar-show');
+});
+
+// changing search icon image on window resize
+window.addEventListener('resize', changeSearchIcon);
+function changeSearchIcon(){
+    let winSize = window.matchMedia("(min-width: 1200px)");
+    if(winSize.matches){
+        document.querySelector('.search-icon img').src = "// navbar toggling"
+const navbarShowBtn = document.querySelector('.navbar-show-btn');
+const navbarCollapseDiv = document.querySelector('.navbar-collapse');
+const navbarHideBtn = document.querySelector('.navbar-hide-btn');
+
+navbarShowBtn.addEventListener('click', function(){
+    navbarCollapseDiv.classList.add('navbar-show');
+});
+navbarHideBtn.addEventListener('click', function(){
+    navbarCollapseDiv.classList.remove('navbar-show');
+});
+
+// changing search icon image on window resize
+window.addEventListener('resize', changeSearchIcon);
+function changeSearchIcon(){
+    let winSize = window.matchMedia("(min-width: 1200px)");
+    if(winSize.matches){
+        document.querySelector('.search-icon img').src = "{% static 'search-icon.png' %}";
+    } else {
+        document.querySelector('.search-icon img').src = "{% static 'search-icon-dark.png' %}";
+    }
+}
+changeSearchIcon();
+
+// stopping all animation and transition
+let resizeTimer;
+window.addEventListener('resize', () =>{
+    document.body.classList.add('resize-animation-stopper');
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        document.body.classList.remove('resize-animation-stopper');
+    }, 400);
+});
+
+$(document).ready(function(){
+    $('[data-toggle="offcanvas"]').click(function(){
+        $("#navigation").toggleClass("hidden-xs");
+    });
+ });
+ 
+ search-icon.png;
+    } else {
+        document.querySelector('.search-icon img').src = "images/search-icon-dark.png";
+    }
+}
+changeSearchIcon();
+
+// stopping all animation and transition
+let resizeTimer;
+window.addEventListener('resize', () =>{
+    document.body.classList.add('resize-animation-stopper');
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        document.body.classList.remove('resize-animation-stopper');
+    }, 400);
+});
+
+$(document).ready(function(){
+    $('[data-toggle="offcanvas"]').click(function(){
+        $("#navigation").toggleClass("hidden-xs");
+    });
+ });
+ 
+ 
+    </script>
+</body>
+</html>

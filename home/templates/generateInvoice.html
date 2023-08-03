@@ -1,0 +1,269 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Create Invoice</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+    body{
+        background:#e0e0e0 !important;
+    }
+    
+    a{
+        text-decoration: none;
+        color:black;
+    }
+    .del-a{
+        color:white;
+    }
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #066acd;
+        }
+
+        .container {
+            width: 40%;
+            top: 50%;
+            left: 50%;
+            background: white;
+            border-radius: 10px;
+            min-width: 450px;
+            position: absolute;
+            min-height: 100px;
+            transform: translate(-50%, -50%);
+        }
+
+        #newitem {
+            position: relative;
+            padding: 30px 20px;
+        }
+
+        #newitem input {
+            width: 75%;
+            height: 45px;
+            padding: 12px;
+            color: #111111;
+            font-weight: 500;
+            position: relative;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            border: 2px solid #d1d3d4;
+        }
+
+        #newitem input:focus {
+            outline: none;
+            border-color: #0d75ec;
+        }
+
+        #newitem button {
+            position: relative;
+            float: right;
+            font-weight: 500;
+            font-size: 16px;
+            background-color: #0d75ec;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            outline: none;
+            width: 20%;
+            height: 45px;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #invoice {
+            border-radius: 10px;
+            width: 100%;
+            position: relative;
+            background-color: #ffffff;
+            padding: 30px 20px;
+            margin-top: 10px;
+        }
+
+        .invoice_item {
+            border-radius: 5px;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #939697;
+            cursor: pointer;
+            background-color: #c5e1e6;
+            height: 50px;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            display: flex;
+        }
+
+        .invoice_item span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .invoice_item button {
+            background-color: #6583e5;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            height: 100%;
+            width: 6rem;
+            border-radius: 5px;
+        }
+        .amt{
+            padding:1%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a href = "{% url 'adash' %}" class = "navbar-brand">
+            <img src = "{% static 'logo.png' %}" alt = "site logo" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{% url 'adash' %}">Home</a>
+     
+          </div>
+        </div>
+      </nav><br>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div id="newitem">
+                <input type="text" class="item" id="invoice_item" placeholder="Add Item">
+                <input type="number" class="amount" id="item_price" placeholder="Amount">
+                <input type='submit' name='Submit'>
+                <input type="hidden" id="description" name="description">
+                <input type="hidden" id="total-amount-hidden" name="total_amount">
+    </form>
+    <button id="push">Add</button>
+    </div>
+    <div id="invoice">
+
+    </div>
+    <div class='amt'>
+    Total Amount
+    <div id="total_amount"></div>
+    </div>
+
+
+    </div>
+
+
+    <script>
+
+        document.querySelector('#push').onclick = function () {
+            event.preventDefault();
+            if (document.querySelector('.item').value.length == 0 || document.querySelector('.amount').value.length == 0) {
+                if (document.querySelector('.item').value.length == 0 && document.querySelector('.amount').value.length == 0) {
+                    alert("Kindly Enter Type and amount");
+                }
+                else {
+                    if (document.querySelector('.item').value.length == 0) {
+                        alert("Kindly Enter Invoice Name!!!!")
+                    }
+                    if (document.querySelector('.amount').value.length == 0) {
+                        alert("Kindly Enter Amount!!!!")
+                    }
+                }
+            }
+
+            else {
+                var amt = document.querySelector('.amount').value;
+                if (amt < 0) {
+                    alert("Kindly Enter correct amount");
+                }
+                else {
+                    document.querySelector('#invoice').innerHTML += `
+            <div class="invoice_item">
+                <span id="itemname">
+                    ${document.querySelector('.item').value}
+                </span>
+                <span id="amount">
+                    ${document.querySelector('.amount').value}
+                </span>
+                <button class="delete">
+                    Delete
+                </button>
+            </div> `;
+                }
+                var sum = 0;
+                var current_tasks = document.querySelectorAll(".delete");
+                for (var i = 0; i < current_tasks.length; i++) {
+                    current_tasks[i].onclick = function () {
+                        this.parentNode.remove();
+                        sum = 0;
+                        var elements = document.querySelectorAll("#amount");
+                        for (var i = 0; i < elements.length; i++) {
+                            var value = parseFloat(elements[i].innerHTML);
+                            if (!isNaN(value)) {
+                                sum += value;
+                            }
+                        }
+                        var description = "";
+                        var invoiceItems = document.querySelectorAll(".invoice_item");
+                        for (var i = 0; i < invoiceItems.length; i++) {
+                            var itemName = invoiceItems[i].querySelector("#itemname").innerHTML;
+                            var amount = invoiceItems[i].querySelector("#amount").innerHTML;
+                            description += itemName.trim() + " : " + amount.trim() + "\n";
+                        }
+                        document.querySelector("#total_amount").innerHTML = sum;
+                        document.querySelector("#description").innerHTML = description;
+                        document.querySelector("#total-amount-hidden").innerHTML = sum;
+
+
+                    }
+
+
+                }
+
+            }
+
+            var elements = document.querySelectorAll("#amount");
+            for (var i = 0; i < elements.length; i++) {
+                var value = parseFloat(elements[i].innerHTML);
+                if (!isNaN(value)) {
+                    sum += value;
+                }
+            }
+            document.querySelector("#total_amount").innerHTML = sum;
+
+            var description = "";
+            var invoiceItems = document.querySelectorAll(".invoice_item");
+            for (var i = 0; i < invoiceItems.length; i++) {
+                var itemName = invoiceItems[i].querySelector("#itemname").innerHTML;
+                var amount = invoiceItems[i].querySelector("#amount").innerHTML;
+                description += itemName.trim() + " : " + amount.trim() + "\n";
+            }
+            console.log(description);
+            document.querySelector("#description").value = description;
+
+            document.querySelector("#total-amount-hidden").value = sum;
+
+            console.log("hello "+document.querySelector("#total-amount-hidden").value)
+            document.querySelector('.amount').value=""
+            document.querySelector('.item').value=""
+        }
+
+    </script>
+
+</body>
+
+</html>

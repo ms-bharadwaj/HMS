@@ -1,0 +1,151 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prescription</title>
+    <style>
+        /* styles for the prescription container */
+        .prescription-container {
+            /*width: 60%;*/
+            margin: auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px #ccc;
+        }
+        /* styles for the logo */
+        .logo {
+            width: 200px;
+            /*height: 100px;*/
+            float: left;
+            margin-right: 20px;
+        }
+        /* styles for the hospital name */
+        .hospital-name {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display:inline-block;
+            text-align: center;
+        }
+        /* styles for the address */
+        .address {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            text-align: left;
+            clear: both;
+        }
+        /* styles for the prescription */
+        .prescription {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+           
+            clear: both;
+        }
+        /* styles for the Rx symbol */
+        .rx-symbol {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4CAF50;
+            /*margin-bottom: 20px;*/
+            float: left;
+            /*margin-right: 20px;*/
+        }
+        /* styles for the patient name */
+        .patient-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        /* styles for the doctor name */
+        .doctor-name {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        /* styles for the date */
+        .date {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        /* styles for the medications */
+        .medications {
+            font-size: 18px;
+            margin-bottom: 20px;
+            min-height: 25rem;
+        }
+        /* styles for the instructions */
+        .instructions {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        /* styles for the print button */
+        #print-button {
+            font-size:16;
+			
+            padding: 12px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        /* styles for the print button when it is being hovered */
+        #print-button:hover {
+            background-color: #3e8e41;
+        }
+        /* styles for the print button when it is being clicked */
+        #print-button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        /* styles for the print button when the page is being printed */
+        @media print {
+            #print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prescription-container">
+        <img class="logo" src="{% static 'logodark.png' %}" alt="Hospital Logo">
+        {% comment %} <div class="hospital-name">ABCD Hospital</div> {% endcomment %}
+        <div class="address">123 Main St, City, State 12345</div>
+        <div class="prescription">
+            
+            <div class="patient-name">Patient Name: {{appointment.patientName}}</div>
+            <div class="doctor-name">Doctor Name: {{appointment.doctorName}}</div>
+            <div class="date">Date: {{appointment.app_date}}</div>
+            <div class="rx-symbol">Rx</div><br><br>
+            <div class="medications">
+                <p><b>Medications:</b></p>
+                <ul>
+					
+                        {{prescription.presc|linebreaks}}
+                    
+                    
+                    {% comment %} {{l}} {% endcomment %}
+                    
+                </ul>
+            </div>
+            <div class="instructions">
+                <p><b>Instructions:</b> Take the medications as directed and follow up with the doctor in 2 weeks.</p>
+            </div>
+        </div>
+        <button id="print-button">Print</button>
+        <script>
+            document.getElementById('print-button').onclick = function() {
+                window.print();
+            };
+        </script>
+    </div>
+</body>
+</html>
